@@ -32,7 +32,7 @@ gulp.task('app', function() {
 		})
 		.external(dependencies);
 
-	if (argv.env == 'production')
+	if (argv.env == 'production' || argv.env == 'dev')
 	{
 		return bundler.bundle()
 			.pipe(source('app.js'))
@@ -56,7 +56,7 @@ gulp.task('vendor', function() {
 		})
 		.require(dependencies);
 	
-	if (argv.env == 'production')
+	if (argv.env == 'production' || argv.env == 'dev')
 	{
 		return bundler.bundle()
 			.pipe(source('vendor.js'))
@@ -104,7 +104,16 @@ gulp.task('watch', function() {
 
 gulp.task('config', function(cb) {
 
-	var socketURL = argv.env == 'production' ? 'https://admin.tryvelvet.com/' : 'http://127.0.0.1:8000/';
+	var socketURL;
+	 if (argv.env == 'production') {
+	 	socketURL = 'https://admin.tryvelvet.com/';
+	 }
+	 else if (argv.env == 'dev') {
+	 	socketURL = 'http://dev.admin.tryvelvet.com/';
+	 }
+	 else {
+	 	socketURL = 'http://127.0.0.1:8000/';
+	 }
 
 	fs.writeFile('./js/VelvetConfig.js', 'var VelvetConfig = {socketURL: "'+socketURL+'"}; module.exports = VelvetConfig;', cb);
 

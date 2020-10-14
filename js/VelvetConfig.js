@@ -1,1 +1,1 @@
-var VelvetConfig = {socketURL: "http://127.0.0.1:8000/"}; module.exports = VelvetConfig;
+var VelvetConfig = {socketURL: "https://admin.tryvelvet.com/"}; module.exports = VelvetConfig;
